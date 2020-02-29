@@ -1,4 +1,4 @@
-# paperclip
+# ![paperclip](https://github.com/radoslawsobieralski/paperclip/blob/master/paperclip/static/img/paperclip.png) paperclip
 
 Simple CRUD flask based app for accounting management system
 
