@@ -1,0 +1,2 @@
+FLASK_APP=paperclip
+FLASK_ENV=development

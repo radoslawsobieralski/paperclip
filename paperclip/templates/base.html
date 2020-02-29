@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+    <!-- Font Awesome  -->
+    <script src="https://kit.fontawesome.com/a9823631f2.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <title>papeclip - {% block title %}{% endblock %}</title>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container">
+            <a class="navbar-brand text-primary pt-0" style="margin-top: 2px;" href="{{ url_for('main.index') }}">
+                <i data-feather="paperclip"></i>
+                <span class="mt-0">paperclip</span>
+            </a>
+            <ul class="navbar-nav mr-auto p-2">
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if active_page == 'main.index' else '' }}"
+                        href="{{ url_for('main.index') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if active_page == 'main.invoices' else '' }}"
+                        href="{{ url_for('main.invoices') }}">Invoices</a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if active_page == 'main.reports' else '' }}"
+                        href="{{ url_for('main.reports') }}">Reports</a>
+                </li>
+                -->
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{ current_user.user_name }}</a>
+                    <div class="dropdown-menu">
+                        <!--
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        -->
+                        <a class="dropdown-item" href="{{ url_for("auth.logout") }}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <div class="mt-4 pt-4 pb-4 bg-light text-dark border-top text-center">
+        <small>2020 &copy; paperclip by <a href="https://github.com/radoslaw.sobieralski/paperclip/">Radoslaw
+                Sobieralski</a></small>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <!-- Feather Icons -->
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- Tooltip -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+</body>
+
+</html>

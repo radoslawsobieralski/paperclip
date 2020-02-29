@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% set active_page = "main.index" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Content - Statistics -->
+<section class="container">
+    <div class="row mt-4">
+        <div class="col border">
+            <div class="row mt-4 mb-4">
+                <div class="col border-right">
+                    <div class="row">
+                        <div class="col my-auto text-right text-primary">
+                            <i class="fas fa-2x fa-file"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <small class="text-uppercase">Invoices (this month)</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h4">{{ invoices_per_month }}</span>
+                                    <span class="h5">PCS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col border-right">
+                    <div class="row">
+                        <div class="col my-auto text-right text-primary">
+                            <i class="fas fa-2x fa-copy"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <small class="text-uppercase">All Invoices</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h4">{{ invoices_per_year }}</span>
+                                    <span class="h5">PCS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col border-right">
+                    <div class="row">
+                        <div class="col my-auto text-right text-primary">
+                            <i class="fas fa-2x fa-comment-dollar"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <small class="text-uppercase">Costs (this month)</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h4">{{ "%.2f"|format(costs_per_month|float) }}</span>
+                                    <span class="h5">PLN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col my-auto text-right text-primary">
+                            <i class="fas fa-2x fa-comments-dollar"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <small class="text-uppercase">All Costs</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h4">{{ "%.2f"|format(costs_per_year|float) }}</span>
+                                    <span class="h5">PLN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Content Titles - Invoices, Costs-->
+<section class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Invoices</a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sm fa-link" data-toggle="tooltip" data-placement="top" title="Show Report"></i>
+                    </a>
+                </li>
+                -->
+            </ul>
+        </div>
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Costs</a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-sm fa-link" data-toggle="tooltip" data-placement="top" title="Show Report"></i>
+                    </a>
+                </li>
+                -->
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Content Charts - Invoices, Costs -->
+<section class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <canvas id="dashboardChartBar"></canvas>
+        </div>
+        <div class="col">
+            <canvas id="dashboardChartLine"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- Content - Invoices, Link-->
+<section class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Invoices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("main.invoices") }}">
+                        <i class="fas fa-sm fa-link" data-toggle="tooltip" data-placement="top"
+                            title="Show Invoices"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Content - Table -->
+<section class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <!--<th scope="col">#</th>-->
+                        <th scope="col">Date</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in invoices_newest_10_desc %}
+                    <tr>
+                        <!--<th scope="row">{{ invoice.id }}</th>-->
+                        <td>{{ invoice.date.strftime("%Y-%m-%d") }}</td>
+                        <td>{{ invoice.name }}</td>
+                        <td>{{ "%.2f"|format(invoice.value|float) }}</td>
+                        {% for currency in currencies %}
+                        {% if invoice.currency == currency.id %}
+                        <td>{{ currency.name }}</td>
+                        {% endif %}
+                        {% endfor %}
+                        {% for payment in payments %}
+                        {% if invoice.payment == payment.id %}
+                        <td>{{ payment.name }}</td>
+                        {% endif %}
+                        {% endfor %}
+                        {% for category in categories %}
+                        {% if invoice.category == category.id %}
+                        <td>{{ category.name }}</td>
+                        {% endif %}
+                        {% endfor %}
+                        <td>{{ invoice.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="{{ url_for("static", filename="js/chart-bar-dashboard.js") }}"></script>
+<script src="{{ url_for("static", filename="js/chart-line-dashboard.js") }}"></script>
+
+<script>
+    line_chart({{ costs_monthly_array|tojson }}, {{ last_6_months|tojson }})
+    bar_chart({{ invoices_monthly_array|tojson }}, {{ last_6_months|tojson }})
+</script>
+
+{% endblock %}
