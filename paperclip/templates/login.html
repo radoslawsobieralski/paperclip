@@ -3,56 +3,56 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<section class="container">
-    <div class="row mt-4">
-        <div class="col"></div>
-    </div>
-    <div class="row mt-5">
-        <div class="col"></div>
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col border p-5">
-                    <div class="row">
-                        <div class="col pb-3">
-                            <div class="text-primary h3 text-center">
-                                <i data-feather="paperclip"></i>
-                                <span class="mt-0">paperclip</span>
+    <section class="container">
+        <div class="row mt-4">
+            <div class="col"></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col border p-5">
+                        <div class="row">
+                            <div class="col pb-3">
+                                <div class="text-primary h3 text-center">
+                                    <i data-feather="paperclip"></i>
+                                    <span class="mt-0">paperclip</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <form method="POST" action="{{ url_for("auth.login") }}">
-                                <div class="form-group">
-                                    <input type="email" name="email_address" class="form-control" id="inputEmail"
-                                        placeholder="Email address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control" id="inputPassword"
-                                        placeholder="Password">
-                                </div>
-                                <div class="form-check mb-3">
-                                    <input type="checkbox" name="remember_me" class="form-check-input"
-                                        id="checkRememberMe" checked>
-                                    <label class="form-check-label" for="checkRememberMe">Remember me</label>
-                                </div>
-                                <div class="text-center pt-2">
-                                    <button type="submit" class="btn btn-primary">Login</button>
-                                </div>
-                            </form>
+                        <div class="row">
+                            <div class="col">
+                                <form method="POST" action="{{ url_for("auth.login") }}">
+                                    <div class="form-group">
+                                        <input type="email" name="email_address" class="form-control" id="inputEmail"
+                                            placeholder="Email address">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" id="inputPassword"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input type="checkbox" name="remember_me" class="form-check-input"
+                                            id="checkRememberMe" checked>
+                                        <label class="form-check-label" for="checkRememberMe">Remember me</label>
+                                    </div>
+                                    <div class="text-center pt-2">
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col"></div>
         </div>
-        <div class="col"></div>
-    </div>
-    <div class="row mt-3 text-center">
-        <div class="col">
-            <a class="text-primary" href="{{ url_for("auth.register") }}">
-                Register a new user
-            </a>
+        <div class="row mt-3 text-center">
+            <div class="col">
+                <a class="text-primary" href="{{ url_for("auth.register") }}">
+                    Register a new user
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
